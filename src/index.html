@@ -3,6 +3,7 @@
 <head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>Triangle Checker</title>
 </head>
@@ -15,23 +16,78 @@
             <div class="form-group">
                 <label for="side1">Length of side 1:</label>
                 <input id="side1" type="text">
-                <br>
-
+            </div>
+            <div class="form-group">
                 <label for="side2">Length of side 2:</label>
                 <input id="side2" type="text">
-                <br>
+            </div>
+            <div class="form-group">
                 <label for="side3">Length of side 3:</label>
                 <input id="side3" type="text">
-
-                <p></p><button type="submit" class="btn">Check triangle!</button></p>
+            </div>
+            <button type="submit" class="btn btn-primary">Check triangle!</button>
         </form>
 
         <div id="result">
             <p>This is <span class="triangle_type"></span>.</p>
         </div>
     </div>
-    </div>
-    <script type="text/javascript" src="main.js"></script>
+    <script type="module">
+        // import './styles.css';
+        // import { Triangle } from './triangle.js';
+        function Triangle(side1, side2, side3) {
+            this.side1 = side1;
+            this.side2 = side2;
+            this.side3 = side3;
+        }
+
+        Triangle.prototype.checkType = function () {
+            if (
+                this.side1 > this.side2 + this.side3 ||
+                this.side2 > this.side1 + this.side3 ||
+                this.side3 > this.side1 + this.side2
+            ) {
+                return 'not a triangle';
+            } else if (this.side1 === this.side2 && this.side2 === this.side3) {
+                return 'an equilateral triangle';
+            } else if (
+                this.side1 === this.side2 ||
+                this.side1 === this.side3 ||
+                this.side2 === this.side3
+            ) {
+                return 'an isosceles triangle';
+            } else if (
+                this.side1 !== this.side2 &&
+                this.side1 !== this.side3 &&
+                this.side2 !== this.side3
+            ) {
+                return 'a scalene triangle';
+            } else {
+                return 'unable to compute';
+            }
+        };
+
+        $(document).ready(function () {
+            $('form#triangle').submit(function (event) {
+                var side1 = parseInt($('input#side1').val());
+                var side2 = parseInt($('input#side2').val());
+                var side3 = parseInt($('input#side3').val());
+                var triangle = new Triangle(side1, side2, side3);
+                var result = triangle.checkType();
+                console.log(side1);
+                console.log(side2);
+                console.log(side3);
+                console.log(triangle);
+                console.log(result);
+
+                $('.triangle_type').text(result);
+
+                $('#result').show();
+
+                event.preventDefault();
+            });
+        });
+    </script>
 </body>
 
 </html>

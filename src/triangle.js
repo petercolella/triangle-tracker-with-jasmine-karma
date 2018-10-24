@@ -30,6 +30,6 @@ Triangle.prototype.checkType = function() {
   }
 };
 
-var trinangle = new Triangle();
+// var triangle = new Triangle();
 
-console.log(triangle(3, 3, 3));
+// console.log(triangle(3, 3, 3));
