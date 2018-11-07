@@ -29,7 +29,3 @@ Triangle.prototype.checkType = function() {
     return 'unable to compute';
   }
 };
-
-// var triangle = new Triangle();
-
-// console.log(triangle(3, 3, 3));
